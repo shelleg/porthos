@@ -1,0 +1,31 @@
+@Library('tikal-pipelib') _
+import tpl.ci.node.tplNodeCiPipeline
+
+pipeline {
+    agent any
+  parameters {
+        string(defaultValue: '', description: '', name: 'featureName')
+        string(defaultValue: '', description: '', name: 'serviceTag')
+        string(defaultValue: '', description: '', name: 'helmRepoURL')
+        string(defaultValue: '', description: '', name: 'helmRepo')
+        string(defaultValue: '', description: '', name: 'helmGitRepo')
+        string(defaultValue: '', description: '', name: 'helmGitRepoBranch')
+        string(defaultValue: '', description: '', name: 'helmCrendetialId')
+        string(defaultValue: '', description: '', name: 'awsCrendetialId')
+        string(defaultValue: '', description: '', name: 'kubeContext')
+        string(defaultValue: 'shelleg', description: 'docker repository prefix name which defaults to shelleg', name: 'dockerRegistryPrefix')
+        string(defaultValue: 'config',  description: 'microservice tag defaults to config', name: 'containerTag')
+        string(defaultValue: 'msa-api', description: 'microservice name', name: 'containerName')
+        string(defaultValue: 'msa-api', description: 'microservice Dockerfile\'s relative path', name: 'dockerPath')
+    }
+    stages {
+        stage ("porthos") {
+            steps {
+                script {
+                    pipeline = new tplNodeCiPipeline(this)
+                    pipeline.run()
+               }
+            }
+        }
+    }
+}
