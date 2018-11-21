@@ -2,8 +2,8 @@
 import tpl.ci.node.tplNodeCiPipeline
 
 pipeline {
-    agent any
-  parameters {
+    agent { label 'kubeslave' }
+    parameters {
         string(defaultValue: '', description: '', name: 'featureName')
         string(defaultValue: '', description: '', name: 'serviceTag')
         string(defaultValue: '', description: '', name: 'helmRepoURL')
